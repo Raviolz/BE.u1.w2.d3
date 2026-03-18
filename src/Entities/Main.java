@@ -1,7 +1,9 @@
 package Entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Main {
     static void main(String[] args) {
@@ -82,15 +84,19 @@ public class Main {
         Product p49 = new Product(49, "Boys Winter Coat", "boys", 75.0);
         Product p50 = new Product(50, "Baby Swing", "baby", 150.0);
 
-
+        List<Product> allProductList = new ArrayList<>(List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25, p26, p27, p28, p29, p30,
+                p31, p32, p33, p34, p35, p36, p37, p38, p39, p40, p41, p42, p43, p44, p45, p46, p47, p48, p49, p50));
         // test
 
-        System.out.println(p20);
-        System.out.println(p33);
-        System.out.println(p50);
+        // System.out.println(p20);
+        // System.out.println(p33);
+        // System.out.println(p50);
+        //  System.out.println("Lista di tutti prodotti" + allProductList);
 
 
         // CREAZIONE TOT ORDER    NOTA: List.of() la crea sul momento non gli assegni nome esiste solo dentro o1,2,3 ecc E SOPRATTUTTO E'IMMUTABILE. Diverso da List<Integer> l = new ArrayList<>();
+        // Order o1 = new Order(1,"pending",LocalDate.of(2026, 1, 2), LocalDate.of(2026, 1, 6),new ArrayList<>(List.of(p1, p2, p3)), c1);
+
 
         Order o1 = new Order(1, "pending", LocalDate.of(2026, 1, 2), LocalDate.of(2026, 1, 6), List.of(p3), c1);
         Order o2 = new Order(2, "delivered", LocalDate.of(2026, 1, 5), LocalDate.of(2026, 1, 10), List.of(p1, p7, p30, p14), c2);
@@ -121,6 +127,24 @@ public class Main {
 
         System.out.println(o18);
         System.out.println(o7);
+
+
+        System.out.println("*****************************************************     ES  1      ************************************************************");
+
+        Stream<Product> justBooksList = allProductList.stream().filter(product -> product.getCategory().equals("books")); // "books".equals(product.getCategory())) ?
+        Stream<Product> expensiveBooks = justBooksList.filter(book -> book.getPrice() > 100);
+        List<Product> listOfExpensiveBooks = expensiveBooks.toList();
+
+        //  FROMA CONTRATTA
+
+        List<Product> listOfExpensiveBooks1 =
+                allProductList.stream()
+                        .filter(p -> "books".equals(p.getCategory()))
+                        .filter(p -> p.getPrice() > 100)
+                        .toList();
+
+        System.out.println(listOfExpensiveBooks);
+        System.out.println(listOfExpensiveBooks1);
     }
 
 
