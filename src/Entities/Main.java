@@ -122,11 +122,14 @@ public class Main {
         Order o19 = new Order(19, "pending", LocalDate.of(2026, 3, 1), LocalDate.of(2026, 3, 6), List.of(p3, p11, p22, p30, p48), c7);
         Order o20 = new Order(20, "delivered", LocalDate.of(2026, 3, 5), LocalDate.of(2026, 3, 10), List.of(p25, p31), c8);
 
+
+        List<Order> allOrderList = new ArrayList<>(List.of(o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16, o17, o18, o19, o20));
         //test
 
 
-        System.out.println(o18);
-        System.out.println(o7);
+        //  System.out.println(o18);
+        // System.out.println(o7);
+        // System.out.println(allOrderList);
 
 
         System.out.println("*****************************************************     ES  1      ************************************************************");
@@ -143,8 +146,29 @@ public class Main {
                         .filter(p -> p.getPrice() > 100)
                         .toList();
 
-        System.out.println(listOfExpensiveBooks);
-        System.out.println(listOfExpensiveBooks1);
+        // System.out.println(listOfExpensiveBooks);
+        // System.out.println(listOfExpensiveBooks1);
+
+        // per visualizzazione a mo di lista for each
+
+        listOfExpensiveBooks.forEach(p -> System.out.println(p));
+
+
+        System.out.println("*****************************************************     ES  2      ************************************************************");
+
+        // Quando un attributo è una lista, bisogna fare ancora .stream() su quella lista e poi lavorare sugli elementi (Product). stream dentro stream se no con dot notation non fa entrare
+
+        List<Order> listOfBabyOrder =
+                allOrderList.stream()
+                        .filter(order -> order.getProducts().stream()   // sono in lista tutti ordini e entro il lista prodotti con stream sotto quindi ho a disposizione attributi prodotto sopra no
+                                .anyMatch(product -> "baby".equals(product.getCategory()))) // qua chiuso lo stream interno degli ordini ... anyperche' con all devono essere tutti ordinibay per entrare in lista
+                        .toList(); // chiudo stream esterno
+
+
+        // System.out.println(listOfBabyOrder);
+        listOfBabyOrder.forEach(order -> System.out.println(order));
+
+
     }
 
 
