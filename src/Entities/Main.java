@@ -169,6 +169,17 @@ public class Main {
         listOfBabyOrder.forEach(order -> System.out.println(order));
 
 
+        System.out.println("*****************************************************     ES  3      ************************************************************");
+
+        List<Product> discountedBoysProductsList =
+                allProductList.stream()
+                        .filter(product -> "boys".equals(product.getCategory()))
+                        .map(boysP -> new Product(boysP.getId(), boysP.getName(), boysP.getCategory(), (boysP.getPrice() * 0.9))) //
+                        .toList();
+
+
+        discountedBoysProductsList.forEach(boysP -> System.out.println(boysP));
+
     }
 
 
